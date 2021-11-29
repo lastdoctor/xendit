@@ -1,4 +1,7 @@
-export const pipesRidesBody = (req, res, next) => {
+import { HttpStatus } from '../shared/http/httpStatus';
+import { RIDES_VALIDATION_ERROR } from '../shared/http/ridesErrorMessage';
+
+export const createRidesValidation = (req, res, next) => {
   const startLatitude = Number(req.body.start_lat);
   const startLongitude = Number(req.body.start_long);
   const endLatitude = Number(req.body.end_lat);
@@ -8,38 +11,23 @@ export const pipesRidesBody = (req, res, next) => {
   const driverVehicle = req.body.driver_vehicle;
 
   if (startLatitude < -90 || startLatitude > 90 || startLongitude < -180 || startLongitude > 180) {
-    return res.status(400).json({
-      error_code: 'VALIDATION_ERROR',
-      message: 'Start latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively',
-    });
+    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
   }
 
   if (endLatitude < -90 || endLatitude > 90 || endLongitude < -180 || endLongitude > 180) {
-    return res.status(400).json({
-      error_code: 'VALIDATION_ERROR',
-      message: 'End latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively',
-    });
+    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
   }
 
   if (typeof riderName !== 'string' || riderName.length < 1) {
-    return res.status(400).json({
-      error_code: 'VALIDATION_ERROR',
-      message: 'Rider name must be a non empty string',
-    });
+    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
   }
 
   if (typeof driverName !== 'string' || driverName.length < 1) {
-    return res.status(400).json({
-      error_code: 'VALIDATION_ERROR',
-      message: 'Rider name must be a non empty string',
-    });
+    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
   }
 
   if (typeof driverVehicle !== 'string' || driverVehicle.length < 1) {
-    return res.status(400).json({
-      error_code: 'VALIDATION_ERROR',
-      message: 'Rider name must be a non empty string',
-    });
+    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
   }
 
   next();

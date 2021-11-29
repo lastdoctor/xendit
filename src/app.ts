@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as swaggerJSDoc from 'swagger-jsdoc';
 import * as swaggerUi from 'swagger-ui-express';
-import { pipesRidesBody } from './middlewares/rides.middleware';
+import { createRidesValidation } from './middlewares/rides.middleware';
 import { createRidesHandler, getRidesByIdHandler, getRidesHandler } from './controllers/rides.controller';
 import { errorController } from './controllers/error.controller';
 
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routes handlers
 app.get('/health', (req, res) => res.send('Healthy'));
-app.post('/rides', pipesRidesBody, createRidesHandler);
+app.post('/rides', createRidesValidation, createRidesHandler);
 app.get('/rides', getRidesHandler);
 app.get('/rides/:id', getRidesByIdHandler);
 app.use((err, req, res, next) => {
