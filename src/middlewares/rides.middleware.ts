@@ -11,23 +11,28 @@ export const createRidesValidation = (req, res, next) => {
   const driverVehicle = req.body.driver_vehicle;
 
   if (startLatitude < -90 || startLatitude > 90 || startLongitude < -180 || startLongitude > 180) {
-    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    return;
   }
 
   if (endLatitude < -90 || endLatitude > 90 || endLongitude < -180 || endLongitude > 180) {
-    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    return;
   }
 
   if (typeof riderName !== 'string' || riderName.length < 1) {
-    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    return;
   }
 
   if (typeof driverName !== 'string' || driverName.length < 1) {
-    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    return;
   }
 
   if (typeof driverVehicle !== 'string' || driverVehicle.length < 1) {
-    return res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    res.status(HttpStatus.BAD_REQUEST).json(RIDES_VALIDATION_ERROR);
+    return;
   }
 
   next();

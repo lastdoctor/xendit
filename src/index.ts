@@ -4,10 +4,11 @@ import { db } from './db';
 import { app } from './app';
 
 const port = 8010;
-
-export const bootsrap = async () => {
+const host = process.env.HOST ? process.env.HOST : `http://localhost:${port}/api-docs/`;
+export const bootsrap = () => {
   try {
     buildSchemas(db);
+    Logger.info(host);
     app.listen(port, () => Logger.info(`App started and listening on port ${port}`));
   } catch (error) {
     Logger.error(error);
