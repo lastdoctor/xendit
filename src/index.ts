@@ -4,7 +4,7 @@ import { db } from './db';
 import { app } from './app';
 
 const port = 8010;
-const host = process.env.HOST ? process.env.HOST : `http://localhost:${port}/api-docs/`;
+const host = process.env.HOST ? `${process.env.HOST}/api-docs/` : `http://localhost:${port}/api-docs/`;
 export const bootsrap = () => {
   try {
     buildSchemas(db);
